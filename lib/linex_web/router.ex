@@ -16,7 +16,12 @@ defmodule LinexWeb.Router do
   scope "/", LinexWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    resources "/urls", UrlController, except: [:update, :delete]
+
+    get "/:code/stats", UrlController, :show
+    get "/:code", UrlController, :redirect_url
+
+    get "/", UrlController, :index
   end
 
   # Other scopes may use custom stacks.
