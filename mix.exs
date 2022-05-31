@@ -20,7 +20,7 @@ defmodule Linex.MixProject do
   def application do
     [
       mod: {Linex.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :ex_machina, :runtime_tools]
     ]
   end
 
