@@ -1,0 +1,23 @@
+<h1>Show Url</h1>
+
+<ul>
+
+  <li>
+    <strong>Clicks:</strong>
+    <%= @url.clicks %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @url.url %>
+  </li>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @url.code %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.url_path(@conn, :edit, @url) %></span>
+<span><%= link "Back", to: Routes.url_path(@conn, :index) %></span>

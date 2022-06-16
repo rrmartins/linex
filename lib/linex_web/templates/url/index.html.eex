@@ -1,0 +1,28 @@
+<h1>Listing Urls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Clicks</th>
+      <th>Url</th>
+      <th>Code</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for url <- @urls do %>
+    <tr>
+      <td><%= url.clicks %></td>
+      <td><%= url.url %></td>
+      <td><%= url.code %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.url_path(@conn, :show, url) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Url", to: Routes.url_path(@conn, :new) %></span>
