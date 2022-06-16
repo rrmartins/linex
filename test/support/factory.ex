@@ -5,9 +5,17 @@ defmodule Linex.Factory do
 
   def url_params_factory do
     %{
-      clicks: 2,
-      code: "ABSDAS",
-      url: "http://google.com"
+      "clicks" => 2,
+      "code" => "ABSDAS",
+      "url" => "http://google.com"
+    }
+  end
+
+  def url_invalid_params_factory do
+    %{
+      "clicks" => nil,
+      "code" => nil,
+      "url" => nil
     }
   end
 
