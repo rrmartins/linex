@@ -24,23 +24,25 @@ defmodule Linex.Links.Url do
 
   defp validate_url(changeset, field, opts \\ []) do
     validate_change(changeset, field, fn _, value ->
-      case URI.parse(value) do
-        %URI{scheme: nil} ->
-          "is missing a scheme (e.g. https)"
-
-        %URI{host: nil} ->
-          "is missing a host"
-
-        %URI{host: host} ->
-          case :inet.gethostbyname(Kernel.to_charlist(host)) do
-            {:ok, _} -> nil
-            {:error, _} -> "invalid host"
-          end
-      end
+      value
+      |> URI.parse()
+      |> handle_parse()
       |> case do
         error when is_binary(error) -> [{field, Keyword.get(opts, :message, error)}]
         _ -> []
       end
     end)
+  end
+
+  defp handle_parse(%URI{scheme: nil}), do: "is missing a scheme (e.g. https)"
+  defp handle_parse(%URI{host: nil}), do: "is missing a host"
+
+  defp handle_parse(%URI{host: host}) do
+    host = Kernel.to_charlist(host)
+
+    case :inet.gethostbyname(host) do
+      {:ok, _} -> nil
+      {:error, _} -> "invalid host"
+    end
   end
 end
