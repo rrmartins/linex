@@ -17,6 +17,8 @@ defmodule LinexWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -32,10 +34,10 @@ defmodule LinexWeb.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Linex.Repo)
+    :ok = Sandbox.checkout(Linex.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Linex.Repo, {:shared, self()})
+      Sandbox.mode(Linex.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
