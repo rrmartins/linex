@@ -78,15 +78,15 @@ defmodule Linex.Links.UrlTest do
     test "test the url invalids" do
       params_one = build(:url_params) |> Map.put("url", "://google.com")
       params_two = build(:url_params) |> Map.put("url", "google.com")
-      # params_three = build(:url_params, url: "https://google...com")
+      params_three = build(:url_params) |> Map.put("url", "https://google...com")
 
       response_one = Url.changeset(params_one)
       response_two = Url.changeset(params_two)
-      # response_three = Url.changeset(params_three)
+      response_three = Url.changeset(params_three)
 
       assert errors_on(response_one) == %{url: ["is missing a scheme (e.g. https)"]}
       assert errors_on(response_two) == %{url: ["is missing a scheme (e.g. https)"]}
-      # assert errors_on(response_three) == %{url: ["invalid host"]}
+      assert errors_on(response_three) == %{url: ["invalid host"]}
     end
   end
 end
